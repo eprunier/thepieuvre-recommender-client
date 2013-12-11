@@ -22,5 +22,10 @@
         fname (first args)
         fargs (rest args)]
     (start system)
-    ((symbol (str "client/" fname)) fargs)
+    (println
+     (condp = fname
+       "get-read-articles" (apply client/get-read-articles fargs)
+       "add-article" (apply client/add-article fargs)
+       "get-articles" (client/get-articles (first fargs) (rest fargs))
+       "read?" (apply client/read? fargs)))
     (stop system)))
